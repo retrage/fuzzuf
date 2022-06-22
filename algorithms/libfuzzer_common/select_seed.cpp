@@ -1,7 +1,7 @@
 /*
  * fuzzuf
  * Copyright (C) 2021 Ricerca Security
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -20,11 +20,13 @@
  * @author Ricerca Security <fuzzuf-dev@ricsec.co.jp>
  */
 #include "fuzzuf/algorithms/libfuzzer/select_seed.hpp"
+
 #include "fuzzuf/utils/for_each_multi_index_values.hpp"
 namespace fuzzuf::algorithm::libfuzzer::select_seed {
 
 /**
- * Display feature count and weight of current corpus elements in libFuzzer compatible format
+ * Display feature count and weight of current corpus elements in libFuzzer
+ * compatible format
  *
  * Corresponding code of original libFuzzer implementation
  * https://github.com/llvm/llvm-project/blob/llvmorg-12.0.1/compiler-rt/lib/fuzzer/FuzzerCorpus.h#L547
@@ -87,4 +89,4 @@ void generateVanillaSchedule(FullCorpus &corpus, std::vector<double> &weights) {
       });
 }
 
-} // namespace fuzzuf::algorithm::libfuzzer::select_seed
+}  // namespace fuzzuf::algorithm::libfuzzer::select_seed

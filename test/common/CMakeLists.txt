@@ -2,7 +2,7 @@ add_library( test-common SHARED random_data.cpp create_file.cpp move_to_program_
 
 target_link_libraries(
   test-common
-  fuzzuf
+  fuzzuf_core
   ${FUZZUF_LIBRARIES}
 )
 
@@ -17,5 +17,5 @@ set_target_properties(
 )
 set_target_properties(
   test-common
-  PROPERTIES LINK_FLAGS "${ADDITIONAL_COMPILE_FLAGS_STR}"
+  PROPERTIES LINK_FLAGS "${ADDITIONAL_LINK_FLAGS_STR}"
 )
