@@ -1,6 +1,6 @@
 add_library(
   fuzzuf_core_die
-  STATIC
+  OBJECT
   die_fuzzer.cpp
   die_hierarflow_routines.cpp
   die_state.cpp

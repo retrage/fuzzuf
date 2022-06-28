@@ -1,6 +1,6 @@
 add_library(
   fuzzuf_core_ijon
-  STATIC
+  OBJECT
   ijon_fuzzer.cpp
   ijon_hierarflow_routines.cpp
   ijon_testcase.cpp

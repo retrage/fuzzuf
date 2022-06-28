@@ -1,6 +1,6 @@
 add_library(
   fuzzuf_core_nezha
-  STATIC
+  OBJECT
   fuzzer.cpp
 )
 

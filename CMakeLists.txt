@@ -363,12 +363,6 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
   )
 endif()
 
-add_library(
-  fuzzuf_core
-  SHARED
-  ${FUZZUF_SOURCES}
-)
-
 set( FUZZUF_CLI_ALGORITHM_SPECIFIC_SOURCES "" )
 FOREACH( alg ${ALGORITHMS} )
   file(GLOB ALGORITHM_SOURCES LIST_DIRECTORIES false RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/cli/fuzzers/${alg}/*.cpp" )
@@ -444,6 +438,46 @@ if( python_wrapper_enabled )
   add_subdirectory(python)
 endif()
 
+add_library(
+  fuzzuf_core_common
+  OBJECT 
+  ${FUZZUF_SOURCES}
+)
+
+target_include_directories(
+  fuzzuf_core_common
+  PRIVATE
+  ${FUZZUF_INCLUDE_DIRS}
+)
+
+set_target_properties(
+  fuzzuf_core_common
+  PROPERTIES
+  POSITION_INDEPENDENT_CODE
+  ON
+)
+
+set_target_properties(
+  fuzzuf_core_common
+  PROPERTIES COMPILE_FLAGS "${ADDITIONAL_COMPILE_FLAGS_STR}"
+)
+
+set_target_properties(
+  fuzzuf_core_common
+  PROPERTIES LINK_FLAGS "${ADDITIONAL_LINK_FLAGS_STR}"
+)
+
+target_link_libraries(
+  fuzzuf_core_common
+  ${FUZZUF_LIBRARIES}
+)
+
+add_library(
+  fuzzuf_core
+  SHARED
+  $<TARGET_OBJECTS:fuzzuf_core_common>
+)
+
 ### Configure dependencies
 target_include_directories(
   fuzzuf_core
@@ -463,6 +497,7 @@ set_target_properties(
 
 target_link_libraries(
   fuzzuf_core
+  fuzzuf_core_common
   ${FUZZUF_LIBRARIES}
   ${FUZZUF_ALGORITHM_LIBS}
 )

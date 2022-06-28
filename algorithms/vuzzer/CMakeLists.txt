@@ -1,6 +1,6 @@
 add_library(
   fuzzuf_core_vuzzer
-  STATIC
+  OBJECT
   vuzzer.cpp
   vuzzer_mutation_hierarflow_routines.cpp
   vuzzer_other_hierarflow_routines.cpp

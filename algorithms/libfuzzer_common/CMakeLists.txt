@@ -1,6 +1,6 @@
 add_library(
   fuzzuf_core_libfuzzer_common
-  STATIC
+  OBJECT
   dictionary.cpp
   input_info.cpp
   #select_seed.cpp

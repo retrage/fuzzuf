@@ -1,6 +1,6 @@
 add_library(
   fuzzuf_core_aflfast
-  STATIC
+  OBJECT
   aflfast_other_hierarflow_routines.cpp
   aflfast_setting.cpp
   aflfast_state.cpp

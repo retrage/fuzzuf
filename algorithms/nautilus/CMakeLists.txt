@@ -1,6 +1,6 @@
 add_library(
   fuzzuf_core_nautilus
-  STATIC
+  OBJECT
   grammartec/context.cpp
   grammartec/rule.cpp
   grammartec/chunkstore.cpp

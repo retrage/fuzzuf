@@ -1,6 +1,6 @@
 add_library(
   fuzzuf_core_afl_common
-  STATIC
+  OBJECT
   afl_dict_data.cpp
   afl_havoc_case_distrib.cpp
   afl_setting.cpp
