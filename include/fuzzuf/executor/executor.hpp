@@ -82,6 +82,7 @@ class Executor {
   // triggered
   virtual void ReceiveStopSignal(void) = 0;
 
+  void CheckBinary(const char *shm_env_var);
   void OpenExecutorDependantFiles();
   void WriteTestInputToFile(const u8 *buf, u32 len);
 

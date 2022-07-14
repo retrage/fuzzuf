@@ -104,7 +104,11 @@ NativeLinuxExecutor::NativeLinuxExecutor(
   // assert(active_instance == nullptr);
   active_instance = this;
 
+  const char *shm_env_var =
+      forksrv ? fuzzuf::coverage::AFLEdgeCovAttacher::SHM_ENV_VAR : nullptr;
+
   SetCArgvAndDecideInputMode();
+  CheckBinary(shm_env_var);
   OpenExecutorDependantFiles();
 
   // Allocate shared memory on initialization of Executor
