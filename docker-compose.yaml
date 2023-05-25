@@ -17,8 +17,6 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yaml'
     ports:
       - 9090:9090
-    depends_on:
-      - statsd-exporter
     networks:
       - back-tier
     restart: always
@@ -50,5 +48,3 @@ services:
       - statsd-exporter
     networks:
       - back-tier
-    deploy:
-      mode: global
