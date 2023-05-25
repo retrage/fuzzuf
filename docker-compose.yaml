@@ -18,6 +18,8 @@ services:
     networks:
       - back-tier
     restart: always
+    deploy:
+      mode: global
 
   prometheus:
     image: prom/prometheus:latest
@@ -31,6 +33,8 @@ services:
     networks:
       - back-tier
     restart: always
+    deploy:
+      mode: global
 
   statsd-exporter:
     image: prom/statsd-exporter-linux-amd64:latest
