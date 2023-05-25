@@ -985,6 +985,16 @@ void AFLStateTemplate<Testcase>::StatsdSocketInit(void) {
   u16 port = STATSD_DEFAULT_PORT;
   char* host = (char*)STATSD_DEFAULT_HOST;
 
+  char* env_var = nullptr;
+  env_var = getenv("AFL_STATSD_HOST");
+  if (env_var != nullptr) {
+    host = env_var;
+  }
+  env_var = getenv("AFL_STATSD_PORT");
+  if (env_var != nullptr) {
+    port = atoi(env_var);
+  }
+
   if ((statsd_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
     ERROR("Failed to create socket");
   }
