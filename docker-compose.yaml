@@ -1,0 +1,54 @@
+version: '3.7'
+
+volumes:
+  prometheus_data: {}
+
+networks:
+  back-tier:
+
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+    ports:
+      - 9090:9090
+    depends_on:
+      - statsd-exporter
+    networks:
+      - back-tier
+    restart: always
+
+  statsd-exporter:
+    image: prom/statsd-exporter-linux-amd64:latest
+    volumes:
+      - ./statsd-exporter/:/etc/statsd-exporter/
+    command:
+      - '--statsd.mapping-config=/etc/statsd-exporter/mapping.yaml'
+      - '--statsd.listen-udp=:8125'
+    ports:
+      - 9125:9125
+      - 8125:8125/udp
+    networks:
+      - back-tier
+    restart: always
+    deploy:
+      mode: global
+
+  fuzzuf:
+    image: ghcr.io/fuzzuf/fuzzuf/dev:latest
+    volumes:
+      - ./:/src/fuzzuf
+    environment:
+      - USER=root
+    entrypoint: /src/fuzzuf/scripts/entrypoint.sh
+    depends_on:
+      - statsd-exporter
+    networks:
+      - back-tier
+    deploy:
+      mode: global
