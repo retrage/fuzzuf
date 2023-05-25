@@ -42,7 +42,8 @@ services:
     volumes:
       - ./:/src/fuzzuf
     environment:
-      - USER=root
+      - AFL_STATSD_HOST=statsd-exporter
+      - AFL_STATSD_PORT=8125
     entrypoint: /src/fuzzuf/scripts/entrypoint.sh
     depends_on:
       - statsd-exporter

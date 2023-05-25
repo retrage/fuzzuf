@@ -17,8 +17,6 @@ rm -rf "$OUT_DIR"
 mkdir -p "$IN_DIR"
 cp "$PUT_SEED_PATH" "$IN_DIR"
 
-export AFL_STATSD_HOST="statsd-exporter"
-export AFL_STATSD_PORT="8125"
 "$FUZZUF_PATH" \
   afl \
   --in_dir="$IN_DIR" \
