@@ -8,6 +8,14 @@ networks:
 
 
 services:
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    networks:
+      - back-tier
+    restart: always
+
   prometheus:
     image: prom/prometheus:latest
     volumes:
