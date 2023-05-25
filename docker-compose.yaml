@@ -34,10 +34,7 @@ services:
 
   statsd-exporter:
     image: prom/statsd-exporter-linux-amd64:latest
-    volumes:
-      - ./scripts/prometheus/:/etc/prometheus/
     command:
-      - '--statsd.mapping-config=/etc/prometheus/statsd-mapping.yaml'
       - '--statsd.listen-udp=:8125'
     ports:
       - 9125:9125

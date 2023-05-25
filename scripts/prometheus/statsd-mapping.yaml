@@ -1,5 +1,0 @@
-mapping:
-  - match: 'fuzzing.*'
-    name: "fuzzing_events_total"
-    labels:
-      action: "$1"
