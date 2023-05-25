@@ -26,6 +26,8 @@
 #include <string>
 #include <vector>
 
+#include <config.h>
+
 #include "fuzzuf/algorithms/afl/afl_dict_data.hpp"
 #include "fuzzuf/algorithms/afl/afl_macro.hpp"
 #include "fuzzuf/algorithms/afl/afl_option.hpp"
@@ -1024,7 +1026,7 @@ template <class Testcase>
 void AFLStateTemplate<Testcase>::StatsdSendMetric(void) {
   // DogStatsD
   const std::string METRIC_PREFIX = "fuzzing";
-  const char* TAG_FORMAT = "|#banner:%s,afl_version:%s";
+  const char* TAG_FORMAT = "|#banner:%s,version:%s";
   const std::string TAGS_SUFFIX_METRICS =
       METRIC_PREFIX + ".cycle_done:%llu|g%s\n" + METRIC_PREFIX +
       ".cycles_wo_finds:%llu|g%s\n" + METRIC_PREFIX + ".execs_done:%llu|g%s\n" +
@@ -1050,7 +1052,7 @@ void AFLStateTemplate<Testcase>::StatsdSendMetric(void) {
   }
   assert(statsd_sock);
 
-  const char* VERSION = "++4.07a";  // TODO
+  const char* VERSION = PROJECT_VERSION;
   const size_t MAX_TAG_LEN = 200;
   char tags[MAX_TAG_LEN * 2] = {0};
   snprintf(tags, MAX_TAG_LEN * 2, TAG_FORMAT, use_banner.c_str(), VERSION);
