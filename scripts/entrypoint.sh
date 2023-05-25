@@ -18,7 +18,7 @@ mkdir -p "$IN_DIR"
 cp "$PUT_SEED_PATH" "$IN_DIR"
 
 "$FUZZUF_PATH" \
-  afl \
+  "$FUZZUF_FUZZER" \
   --in_dir="$IN_DIR" \
   --out_dir="$OUT_DIR" \
   -- \

@@ -50,6 +50,7 @@ services:
     volumes:
       - ./:/src/fuzzuf
     environment:
+      - FUZZUF_FUZZER=rezzuf
       - AFL_STATSD_HOST=statsd-exporter
       - AFL_STATSD_PORT=8125
     entrypoint: /src/fuzzuf/scripts/entrypoint.sh
