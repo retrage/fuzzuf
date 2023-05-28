@@ -230,7 +230,7 @@ u32 AFLFastState::DoCalcScore(AFLFastTestcase &testcase) {
 
     case option::QUAD:
       factor =
-          testcase.fuzz_level * testcase.fuzz_level / (fuzz == 0 ? 1 : fuzz);
+          (u32)((u64)testcase.fuzz_level * (u64)testcase.fuzz_level / (fuzz == 0 ? 1 : fuzz));
       break;
 
     default:
