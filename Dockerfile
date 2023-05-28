@@ -1,10 +1,10 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 LABEL org.opencontainers.image.authors="Ricerca Security <fuzzuf-dev@ricsec.co.jp>"
 
 ARG PIN_NAME="pin-3.7-97619-g0d0c92f4f-gcc-linux"
 ARG PIN_URL="https://software.intel.com/sites/landingpage/pintool/downloads/${PIN_NAME}.tar.gz"
 ARG PIN_PATH="/src/${PIN_NAME}.tar.gz"
-ARG NODE_VERSION="17"
+ARG NODE_VERSION="18"
 
 # Install dependencies
 RUN apt-get update \
