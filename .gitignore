@@ -12,3 +12,4 @@ bb.out
 .python-version
 /.vscode
 /build
+/vcpkg_installed
