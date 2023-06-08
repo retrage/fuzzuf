@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE native_linux_executor.run
-#define BOOST_TEST_DYN_LINK
 #include <unistd.h>
 
 #include <boost/scope_exit.hpp>

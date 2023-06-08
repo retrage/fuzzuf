@@ -17,7 +17,6 @@
  */
 #include "fuzzuf/algorithms/aflfast/aflfast_option.hpp"
 #define BOOST_TEST_MODULE algorithms.aflplusplus.fast3_score
-#define BOOST_TEST_DYN_LINK
 #include <boost/test/tools/interface.hpp>
 #include <boost/test/unit_test.hpp>
 

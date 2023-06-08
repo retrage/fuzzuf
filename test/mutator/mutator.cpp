@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE mutator.mutator
-#define BOOST_TEST_DYN_LINK
 #include "fuzzuf/mutator/mutator.hpp"
 
 #include <boost/test/unit_test.hpp>

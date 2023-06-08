@@ -17,7 +17,6 @@
  */
 
 #define BOOST_TEST_MODULE util.global_counter
-#define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
 
 #include "fuzzuf/utils/common.hpp"

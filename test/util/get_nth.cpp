@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE util.GetNth
-#define BOOST_TEST_DYN_LINK
 #include "fuzzuf/utils/type_traits/get_nth.hpp"
 
 #include <boost/test/unit_test.hpp>

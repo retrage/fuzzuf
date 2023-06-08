@@ -45,7 +45,6 @@
  */
 
 #define BOOST_TEST_MODULE fuzzer.multiple.instances
-#define BOOST_TEST_DYN_LINK
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>
 #include <functional>

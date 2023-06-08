@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE algorithms.libfuzzer.dictionary
-#define BOOST_TEST_DYN_LINK
 #include "fuzzuf/algorithms/libfuzzer/dictionary.hpp"
 
 #include <config.h>

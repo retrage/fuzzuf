@@ -18,7 +18,6 @@
 
 #include "fuzzuf/algorithms/rezzuf/rezzuf_state.hpp"
 #define BOOST_TEST_MODULE algorithms.rezzuf.cli_parser
-#define BOOST_TEST_DYN_LINK
 #include <array>
 #include <boost/test/unit_test.hpp>
 #include <iostream>
