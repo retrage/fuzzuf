@@ -18,6 +18,7 @@ RUN apt-get update \
     cmake \
     git \
     libboost-all-dev \
+    pkg-config \
     python3 \
     python3-pip \
     nlohmann-json3-dev \
@@ -30,8 +31,21 @@ RUN apt-get update \
     wget \
     nodejs \
     afl++-clang \
+    unzip \
+    tar \
+    zip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+
+RUN git config --global --add safe.directory ${SRC_DIR}
+
+# Install vcpkg
+RUN mkdir -p ${SRC_DIR} \
+  && git clone https://github.com/Microsoft/vcpkg.git ${SRC_DIR}/vcpkg \
+  && cd ${SRC_DIR}/vcpkg \
+  && ./bootstrap-vcpkg.sh -disableMetrics
+ENV VCPKG_ROOT ${SRC_DIR}/vcpkg
+ENV PATH ${SRC_DIR}/vcpkg:${PATH}
 
 # Install fuzzuf/polytracker
 RUN mkdir -p ${SRC_DIR} \
