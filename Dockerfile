@@ -19,14 +19,10 @@ RUN apt-get update \
     build-essential \
     cmake \
     git \
-    libboost-all-dev \
     pkg-config \
     python2.7-dev \
     python3 \
     python3-pip \
-    nlohmann-json3-dev \
-    pybind11-dev \
-    libcrypto++-dev \
     doxygen \
     graphviz \
     mscgen \
