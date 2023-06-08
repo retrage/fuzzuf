@@ -199,6 +199,8 @@ cmd_build() {
       -DPIN_ROOT=$PIN_ROOT \
       -DENABLE_DOXYGEN=$doxygen \
       -DENABLE_ALGORITHMS=all \
+      -DCMAKE_TOOLCHAIN_FILE=$CTR_SRC_ROOT_DIR/vcpkg/scripts/buildsystems/vcpkg.cmake \
+      -DVCPKG_INSTALLED_DIR=$CTR_FUZZUF_ROOT_DIR/vcpkg_installed \
     && cmake --build $CTR_FUZZUF_BUILD_DIR -j$(nproc)"
 
   fix_dir_perms $?
