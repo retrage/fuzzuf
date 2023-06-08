@@ -20,6 +20,7 @@ RUN apt-get update \
     cmake \
     git \
     libboost-all-dev \
+    pkg-config \
     python2.7-dev \
     python3 \
     python3-pip \
@@ -36,8 +37,21 @@ RUN apt-get update \
     libfdt-dev \
     libglib2.0-dev \
     libpixman-1-dev \
+    unzip \
+    tar \
+    zip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+
+RUN git config --global --add safe.directory ${SRC_DIR}
+
+# Install vcpkg
+RUN mkdir -p ${SRC_DIR} \
+  && git clone https://github.com/Microsoft/vcpkg.git ${SRC_DIR}/vcpkg \
+  && cd ${SRC_DIR}/vcpkg \
+  && ./bootstrap-vcpkg.sh -disableMetrics
+ENV VCPKG_ROOT ${SRC_DIR}/vcpkg
+ENV PATH ${SRC_DIR}/vcpkg:${PATH}
 
 # Install fuzzuf/polytracker
 RUN mkdir -p ${SRC_DIR} \
