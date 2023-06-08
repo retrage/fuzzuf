@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE util.bswap
-#define BOOST_TEST_DYN_LINK
 #include "fuzzuf/utils/bswap.hpp"
 
 #include <boost/test/unit_test.hpp>

@@ -17,7 +17,6 @@
  */
 
 #define BOOST_TEST_MODULE algorithms.rezzuf.parallel
-#define BOOST_TEST_DYN_LINK
 #include <config.h>
 
 #include <boost/test/unit_test.hpp>

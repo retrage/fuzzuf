@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE algorithms.libfuzzer.select_seed
-#define BOOST_TEST_DYN_LINK
 #include "fuzzuf/algorithms/libfuzzer/select_seed.hpp"
 
 #include <config.h>
