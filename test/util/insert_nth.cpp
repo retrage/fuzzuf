@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE util.InsertNth
-#define BOOST_TEST_DYN_LINK
 #include "fuzzuf/utils/type_traits/insert_nth.hpp"
 
 #include <boost/test/unit_test.hpp>

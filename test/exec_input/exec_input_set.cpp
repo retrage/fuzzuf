@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE exec_input.set
-#define BOOST_TEST_DYN_LINK
 #include "fuzzuf/exec_input/exec_input_set.hpp"
 
 #include <boost/test/unit_test.hpp>

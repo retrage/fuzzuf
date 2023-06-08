@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE util.call_with_nth
-#define BOOST_TEST_DYN_LINK
 #include "fuzzuf/utils/call_with_nth.hpp"
 
 #include <array>

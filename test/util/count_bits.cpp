@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE util.count_bits
-#define BOOST_TEST_DYN_LINK
 #include <array>
 #include <boost/test/unit_test.hpp>
 #include <iostream>

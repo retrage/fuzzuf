@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE algorithms.afl.cli_parser
-#define BOOST_TEST_DYN_LINK
 #include <array>
 #include <boost/test/unit_test.hpp>
 #include <iostream>

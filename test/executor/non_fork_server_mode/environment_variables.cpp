@@ -17,7 +17,6 @@
  */
 #define BOOST_TEST_MODULE \
   native_linux_executor.non_fork_server_mode.environment_variables
-#define BOOST_TEST_DYN_LINK
 
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>

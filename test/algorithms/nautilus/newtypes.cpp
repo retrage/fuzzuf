@@ -16,7 +16,6 @@
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 #define BOOST_TEST_MODULE nautilus.newtypes
-#define BOOST_TEST_DYN_LINK
 
 #include "fuzzuf/algorithms/nautilus/grammartec/newtypes.hpp"
 

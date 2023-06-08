@@ -17,7 +17,6 @@
  */
 // fuzzer_handle.fuzzing_loop に改名
 #define BOOST_TEST_MODULE fuzzer.loop
-#define BOOST_TEST_DYN_LINK
 #include <boost/scope_exit.hpp>
 #include <boost/test/unit_test.hpp>
 #include <create_file.hpp>
