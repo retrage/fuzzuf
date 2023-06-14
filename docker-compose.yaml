@@ -1,0 +1,54 @@
+version: '3.7'
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+networks:
+  back-tier:
+
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - grafana_data:/var/lib/grafana
+    ports:
+      - 3000:3000
+    networks:
+      - back-tier
+    depends_on:
+      - prometheus
+    restart: always
+    deploy:
+      mode: global
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./scripts/prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+    ports:
+      - 9090:9090
+    networks:
+      - back-tier
+    restart: always
+    deploy:
+      mode: global
+
+  fuzzuf:
+    image: ghcr.io/fuzzuf/fuzzuf/dev:latest
+    volumes:
+      - ./:/src/fuzzuf
+    ports:
+      - 9125:9125
+    environment:
+      - FUZZUF_FUZZER=afl
+      - AFL_METRICS_ADDR=fuzzuf:9125
+    entrypoint: /src/fuzzuf/scripts/entrypoint.sh
+    networks:
+      - back-tier
+    depends_on:
+      - prometheus
