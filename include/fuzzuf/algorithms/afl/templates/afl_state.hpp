@@ -17,6 +17,9 @@
  */
 #pragma once
 
+#include <prometheus/counter.h>
+#include <prometheus/exposer.h>
+#include <prometheus/gauge.h>
 #include <sys/ioctl.h>
 
 #include <memory>
@@ -1869,6 +1872,86 @@ void AFLStateTemplate<Testcase>::ShowStats(void) {
   /* Hallelujah! */
 
   fflush(0);
+}
+
+template <class Testcase>
+void AFLStateTemplate<Testcase>::LaunchMetrics(void) {
+  using namespace prometheus;
+
+  std::string bind_addr = "127.0.0.1:9125";
+  char* s = getenv("AFL_METRICS_ADDR");
+  if (s != nullptr) {
+    bind_addr = s;
+  }
+
+  metrics = std::make_shared<metrics::AFLMetrics>(bind_addr);
+
+  auto& gauge = BuildGauge()
+                    .Name("fuzzing_stats")
+                    .Help("fuzzuf fuzzing metrics")
+                    .Register(*metrics->registry);
+  auto& _cycle_done =
+      gauge.Add({{"category", "cycles"}, {"type", "cycle_done"}});
+  auto& _cycles_wo_finds =
+      gauge.Add({{"category", "cycles"}, {"type", "cycles_wo_finds"}});
+  auto& _execs_done =
+      gauge.Add({{"category", "execs"}, {"type", "execs_done"}});
+  auto& _execs_per_sec =
+      gauge.Add({{"category", "execs"}, {"type", "execs_per_sec"}});
+  auto& _corpus_count =
+      gauge.Add({{"category", "corpus"}, {"type", "corpus_count"}});
+  auto& _corpus_favored =
+      gauge.Add({{"category", "corpus"}, {"type", "corpus_favored"}});
+  auto& _corpus_found =
+      gauge.Add({{"category", "corpus"}, {"type", "corpus_found"}});
+  auto& _corpus_imported =
+      gauge.Add({{"category", "corpus"}, {"type", "corpus_imported"}});
+  auto& _max_depth =
+      gauge.Add({{"category", "depth"}, {"type", "max_depth"}});
+  auto& _cur_item =
+      gauge.Add({{"category", "seed"}, {"type", "cur_item"}});
+  auto& _pending_favs =
+      gauge.Add({{"category", "seed"}, {"type", "pending_favs"}});
+  auto& _pending_total =
+      gauge.Add({{"category", "seed"}, {"type", "pending_total"}});
+  auto& _corpus_variable =
+      gauge.Add({{"category", "variable"}, {"type", "corpus_variable"}});
+  auto& _total_crashes =
+      gauge.Add({{"category", "crashes"}, {"type", "total_crashes"}});
+  auto& _slowest_exec_ms =
+      gauge.Add({{"category", "execs"}, {"type", "slowest_exec_ms"}});
+  auto& _edges_found =
+      gauge.Add({{"category", "edges"}, {"type", "edges_found"}});
+  auto& _var_byte_count =
+      gauge.Add({{"category", "variable"}, {"type", "var_byte_count"}});
+
+  metrics->thread = std::thread([&] {
+    metrics->exposer.RegisterCollectable(metrics->registry);
+
+    while (true) {
+      _cycle_done.Set(queue_cycle ? (queue_cycle - 1) : 0);
+      _cycles_wo_finds.Set(cycles_wo_finds);
+      _execs_done.Set(total_execs);
+      _execs_per_sec.Set(avg_exec);
+      _corpus_count.Set(queued_paths);
+      _corpus_favored.Set(queued_favored);
+      _corpus_found.Set(queued_discovered);
+      _corpus_imported.Set(queued_imported);
+      _max_depth.Set(max_depth);
+      _cur_item.Set(current_entry);
+      _pending_favs.Set(pending_favored);
+      _pending_total.Set(pending_not_fuzzed);
+      _corpus_variable.Set(queued_variable);
+      _total_crashes.Set(total_crashes);
+      _slowest_exec_ms.Set(slowest_exec_ms);
+      _edges_found.Set(utils::CountNon255Bytes(&virgin_bits[0], virgin_bits.size()));
+      _var_byte_count.Set(var_byte_count);
+
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+  });
+
+  metrics->thread.detach();
 }
 
 template <class Testcase>
