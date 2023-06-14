@@ -6,6 +6,7 @@
     "boost",
     "cryptopp",
     "nlohmann-json",
+    "prometheus-cpp",
     "python3",
     "pybind11"
   ]
