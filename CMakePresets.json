@@ -7,11 +7,11 @@
   },
   "configurePresets": [
     {
-      "name": "debug",
-      "displayName": "Linux Debug",
-      "description": "default Linux debug build",
+      "name": "default",
+      "displayName": "Default Config",
+      "description": "Default debug build",
       "generator": "Unix Makefiles",
-      "binaryDir": "${sourceDir}/build/${presetName}",
+      "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "/usr/bin/gcc",
         "CMAKE_CXX_COMPILER": "/usr/bin/g++",
@@ -19,8 +19,25 @@
         "DEFAULT_RUNLEVEL": "Debug",
         "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
         "VCPKG_INSTALLED_DIR": "${sourceDir}/vcpkg_installed",
-        "ENABLE_ALGORITHMS": "all",
-        "ENABLE_DOXYGEN": false
+        "ENABLE_ALGORITHMS": "$env{ALGORITHMS}",
+        "ENABLE_DOXYGEN": "$env{DOXYGEN}",
+        "PIN_ROOT": "$env{PIN_ROOT}"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default",
+      "configurePreset": "default",
+      "jobs": 8
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "default",
+      "configurePreset": "default",
+      "execution": {
+        "jobs": 8
       }
     }
   ]
