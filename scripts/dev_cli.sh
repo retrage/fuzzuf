@@ -199,6 +199,10 @@ cmd_build() {
     "$CTR_IMAGE" \
     /bin/bash -c "set -eux \
     && cmake -B $CTR_FUZZUF_BUILD_DIR \
+      -G \"Unix Makefiles\" \
+      -DCMAKE_MAKE_PROGRAM="/usr/bin/make" \
+      -DCMAKE_C_COMPILER="/usr/bin/gcc" \
+      -DCMAKE_CXX_COMPILER="/usr/bin/g++" \
       -DCMAKE_BUILD_TYPE=$build_type \
       -DDEFAULT_RUNLEVEL=$runlevel \
       -DPIN_ROOT=$PIN_ROOT \
