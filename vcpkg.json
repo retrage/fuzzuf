@@ -5,8 +5,11 @@
   "dependencies": [
     "boost",
     "cryptopp",
+    "glib",
     "nlohmann-json",
+    "python2",
     "python3",
-    "pybind11"
+    "pybind11",
+    "zlib"
   ]
 }
