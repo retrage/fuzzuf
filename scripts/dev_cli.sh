@@ -26,18 +26,8 @@ CTR_SRC_ROOT_DIR="/src"
 CTR_FUZZUF_ROOT_DIR="$CTR_SRC_ROOT_DIR/fuzzuf"
 
 CTR_FUZZUF_BUILD_DIR="$CTR_FUZZUF_ROOT_DIR/build"
-BUILD_TYPE="Debug"
-RUNLEVEL="Debug"
 ALGORITHMS="all"
-DOXYGEN="1"
-
-PIN_BASE="pin-3.7-97619-g0d0c92f4f-gcc-linux"
-PIN_NAME="$PIN_BASE.tar.gz"
-PIN_URL="https://software.intel.com/sites/landingpage/pintool/downloads/$PIN_NAME"
-PIN_PATH="$CTR_SRC_ROOT_DIR/$PIN_NAME"
-PIN_ROOT="$CTR_SRC_ROOT_DIR/$PIN_BASE"
-
-NODE_VERSION="18"
+DOXYGEN="0"
 
 # Send a decorated message to stdout, followed by a new line
 #
@@ -156,33 +146,20 @@ cmd_build-container() {
   $DOCKER_RUNTIME build \
     -t "$CTR_IMAGE" \
     -f "$FUZZUF_DOCKERFILE" \
-    --build-arg PIN_URL="$PIN_URL" \
-    --build-arg PIN_PATH="$PIN_PATH" \
-    --build-arg NODE_VERSION="$NODE_VERSION" \
     "$FUZZUF_ROOT_DIR"
 }
 
 cmd_build() {
-  build_type="$BUILD_TYPE"
-  runlevel="$RUNLEVEL"
   algorithms="$ALGORITHMS"
   doxygen="$DOXYGEN"
   while [ $# -gt 0 ]; do
     case "$1" in
             "-h"|"--help")  { cmd_help; exit 1; } ;;
-            "--debug")      { build_type="Debug"; } ;;
-            "--release")    { build_type="Release"; } ;;
-            "--runlevel")
-              shift
-              [[ "$1" =~ ^(Debug|Release) ]] || \
-                die "Invalid runlevel: $1. Valid options are \"Debug\" and \"Release\"."
-                runlevel="$1"
-                ;;
             "--algorithms")
               shift
               algorithms="$1"
               ;;
-            "--no-doxygen") { doxygen="0"; } ;;
+            "--doxygen") { doxygen="1"; } ;;
             *)
               die "Unknown build argument: $1. Please use --help for help."
               ;;
@@ -198,18 +175,7 @@ cmd_build() {
     --volume "$FUZZUF_ROOT_DIR:$CTR_FUZZUF_ROOT_DIR" \
     "$CTR_IMAGE" \
     /bin/bash -c "set -eux \
-    && cmake -B $CTR_FUZZUF_BUILD_DIR \
-      -G \"Unix Makefiles\" \
-      -DCMAKE_MAKE_PROGRAM="/usr/bin/make" \
-      -DCMAKE_C_COMPILER="/usr/bin/gcc" \
-      -DCMAKE_CXX_COMPILER="/usr/bin/g++" \
-      -DCMAKE_BUILD_TYPE=$build_type \
-      -DDEFAULT_RUNLEVEL=$runlevel \
-      -DPIN_ROOT=$PIN_ROOT \
-      -DENABLE_ALGORITHMS=$algorithms \
-      -DENABLE_DOXYGEN=$doxygen \
-      -DCMAKE_TOOLCHAIN_FILE=$CTR_SRC_ROOT_DIR/vcpkg/scripts/buildsystems/vcpkg.cmake \
-      -DVCPKG_INSTALLED_DIR=$CTR_FUZZUF_ROOT_DIR/vcpkg_installed \
+    && cmake -S $CTR_FUZZUF_ROOT_DIR --preset=default \
     && cmake --build $CTR_FUZZUF_BUILD_DIR -j$(nproc)"
 
   fix_dir_perms $?
@@ -282,13 +248,10 @@ cmd_help() {
     echo ""
     echo "Available commands:"
     echo ""
-    echo "    build [--debug|--release] [--runlevel Debug|Release]  [--algorithms ALGORITHMS] [--no-doxygen]"
+    echo "    build [--algorithms ALGORITHMS] [--doxygen]"
     echo "        Build the fuzzuf binaries."
-    echo "        --debug               Build the debug binaries. This is the default."
-    echo "        --release             Build the release binaries."
-    echo "        --runlevel            Select default runlevel. Default is Debug."
     echo "        --algorithms          Select fuzzing algorithms to build. Default is all."
-    echo "        --no-doxygen          Do not generate the Doxygen documents."
+    echo "        --doxygen             Generate the Doxygen documents."
     echo ""
     echo "    tests"
     echo "        Run the fuzzuf tests."
