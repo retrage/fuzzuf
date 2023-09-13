@@ -2,15 +2,30 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
   "name": "fuzzuf",
   "version": "0.1.0",
-  "builtin-baseline" : "da21e45c9ae689f63aa27f3a4ee0e64fe6b16494",
+  "builtin-baseline": "da21e45c9ae689f63aa27f3a4ee0e64fe6b16494",
   "dependencies": [
     "boost",
     "cryptopp",
-    "glib",
-    "nlohmann-json",
-    "python2",
-    "python3",
-    "pybind11",
-    "zlib"
+    "nlohmann-json"
+  ],
+  "features": {
+    "python": {
+      "description": "Support Python binding",
+      "dependencies": [
+        "python3",
+        "pybind11"
+      ]
+    },
+    "eclipser": {
+      "description": "Support Eclipser QEMU",
+      "dependencies": [
+        "glib",
+        "python2",
+        "zlib"
+      ]
+    }
+  },
+  "default-features": [
+    "python"
   ]
 }
