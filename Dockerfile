@@ -19,6 +19,9 @@ RUN apt-get update \
     build-essential \
     cmake \
     git \
+    autoconf \
+    autoconf-archive \
+    libtool \
     pkg-config \
     python2.7-dev \
     python3 \
