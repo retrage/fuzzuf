@@ -33,9 +33,7 @@ RUN apt-get update \
     wget \
     nodejs \
     afl++-clang \
-    libfdt-dev \
     libglib2.0-dev \
-    libpixman-1-dev \
     unzip \
     tar \
     zip \
