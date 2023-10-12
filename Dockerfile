@@ -57,3 +57,6 @@ ENV RUNLEVEL "Debug"
 ENV PIN_ROOT ${SRC_DIR}/${PIN_NAME}
 ENV DOXYGEN "0"
 ENV ALGORITHMS "all"
+
+COPY prometheus-cpp_1.1.0_amd64.deb ${SRC_DIR}
+RUN dpkg -i ${SRC_DIR}/prometheus-cpp_1.1.0_amd64.deb || apt-get install -f
