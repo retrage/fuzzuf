@@ -31,6 +31,7 @@ AFLFuzzerTemplate<State>::AFLFuzzerTemplate(std::unique_ptr<State>&& state_ref)
   state->SaveCmdline(state->setting->argv);
   state->FixUpBanner(state->setting->argv[0]);
   state->CheckIfTty();
+  state->LaunchMetrics();
 
   state->ReadTestcases();
   state->PivotInputs();

@@ -25,6 +25,7 @@
 
 #include "fuzzuf/algorithms/afl/afl_dict_data.hpp"
 #include "fuzzuf/algorithms/afl/afl_macro.hpp"
+#include "fuzzuf/algorithms/afl/afl_metrics.hpp"
 #include "fuzzuf/algorithms/afl/afl_option.hpp"
 #include "fuzzuf/algorithms/afl/afl_setting.hpp"
 #include "fuzzuf/algorithms/afl/afl_testcase.hpp"
@@ -112,6 +113,8 @@ struct AFLStateTemplate {
   void PerformDryRun(void);
   virtual void ShowStats(void);
 
+  void LaunchMetrics(void);
+
   void ReceiveStopSignal(void);
 
   bool ShouldConstructAutoDict(void);
@@ -158,6 +161,9 @@ struct AFLStateTemplate {
 
   // FILE used in MaybeUpdatePlotFile
   FILE *plot_file;
+
+  // Prometheus metrics
+  std::shared_ptr<metrics::AFLMetrics> metrics = nullptr;
 
   // AFLStateTemplate has to own eff_map and prev_cksum in fuzz_one
   u32 eff_cnt;
